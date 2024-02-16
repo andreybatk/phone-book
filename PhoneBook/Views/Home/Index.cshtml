@@ -4,7 +4,9 @@
 }
 
 <h2>Телефонная книга</h2>
-
+<h4>
+    <a asp-action="Create">Добавить контакт</a>
+</h4>
 <table class="table" border="2">
     <thead>
         <tr>
@@ -12,6 +14,7 @@
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчество</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +25,9 @@
                 <td>@item.FirstName</td>
                 <td>@item.SecondName</td>
                 <td>@item.LastName</td>
+                <td>
+                    
+                </td>
             </tr>
         }
     </tbody>

@@ -30,13 +30,34 @@ namespace PhoneBook.Controllers
             //}
             //_context.SaveChanges();
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return _context.Persons != null ?
                         View(await _context.Persons.ToListAsync()) :
                         Problem("Entity set 'ApplicationContext.Persons'  is null.");
         }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Persons.Add(person);
+                await _context.SaveChangesAsync();
+                return Redirect("~/");
+            }
+            
+            return View(person);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Persons == null)
@@ -44,15 +65,16 @@ namespace PhoneBook.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Persons
+            var person = await _context.Persons
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (project == null)
+            if (person == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(person);
         }
+
         public IActionResult Privacy()
         {
             return View();
