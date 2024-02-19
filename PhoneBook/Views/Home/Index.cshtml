@@ -22,11 +22,13 @@
         {
             <tr>
                 <td><a asp-action="Details" asp-route-id="@item.ID">@item.ID</a></td>
-                <td>@item.FirstName</td>
                 <td>@item.SecondName</td>
+                <td>@item.FirstName</td>
                 <td>@item.LastName</td>
                 <td>
-                    
+                    <a asp-action="Edit" asp-route-id="@item.ID">Изменить</a>
+                    /
+                    <a asp-action="Delete" asp-route-id="@item.ID">Удалить</a>
                 </td>
             </tr>
         }

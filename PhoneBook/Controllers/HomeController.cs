@@ -56,7 +56,42 @@ namespace PhoneBook.Controllers
             
             return View(person);
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Persons == null)
+            {
+                return NotFound();
+            }
 
+            var person = await _context.Persons
+                .FindAsync(id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return View(person);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Persons.Update(person);
+                    await _context.SaveChangesAsync();
+                    return Redirect("~/");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+            }
+
+            return View(person);
+        }
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
@@ -73,6 +108,25 @@ namespace PhoneBook.Controllers
             }
 
             return View(person);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.Persons == null)
+            {
+                return NotFound();
+            }
+
+            var person = await _context.Persons
+                .FindAsync(id);
+
+            if (person != null)
+            {
+                _context.Persons.Remove(person);
+                await _context.SaveChangesAsync();
+            }
+
+            return Redirect("~/");
         }
 
         public IActionResult Privacy()
