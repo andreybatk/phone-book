@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PhoneBook.DB;
+using PhoneBook.DB.Infrastructure;
 using PhoneBook.DB.Models;
 using PhoneBook.Models;
 using System.Diagnostics;
@@ -9,10 +10,10 @@ namespace PhoneBook.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationContext _context;
+        private readonly IPhoneBookData _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationContext context)
+        public HomeController(ILogger<HomeController> logger, IPhoneBookData context)
         {
             _logger = logger;
             _context = context;
@@ -33,9 +34,7 @@ namespace PhoneBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return _context.Persons != null ?
-                        View(await _context.Persons.ToListAsync()) :
-                        Problem("Entity set 'ApplicationContext.Persons'  is null.");
+            return View(await _context.GetContactsAsync());
         }
 
         [HttpGet]
@@ -49,23 +48,17 @@ namespace PhoneBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Persons.Add(person);
-                await _context.SaveChangesAsync();
+                await _context.AddContactAsync(person);
                 return Redirect("~/");
             }
-            
+
             return View(person);
         }
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Persons == null)
-            {
-                return NotFound();
-            }
+            var person = await _context.GetContactByIdAsync(id);
 
-            var person = await _context.Persons
-                .FindAsync(id);
             if (person == null)
             {
                 return NotFound();
@@ -80,8 +73,7 @@ namespace PhoneBook.Controllers
             {
                 try
                 {
-                    _context.Persons.Update(person);
-                    await _context.SaveChangesAsync();
+                    await _context.UpdateContactAsync(person);
                     return Redirect("~/");
                 }
                 catch (DbUpdateConcurrencyException)
@@ -95,13 +87,9 @@ namespace PhoneBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Persons == null)
-            {
-                return NotFound();
-            }
 
-            var person = await _context.Persons
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var person = await _context.GetContactByIdAsync(id);
+
             if (person == null)
             {
                 return NotFound();
@@ -112,18 +100,11 @@ namespace PhoneBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Persons == null)
-            {
-                return NotFound();
-            }
-
-            var person = await _context.Persons
-                .FindAsync(id);
+            var person = await _context.GetContactByIdAsync(id);
 
             if (person != null)
             {
-                _context.Persons.Remove(person);
-                await _context.SaveChangesAsync();
+                await _context.DeleteContactAsync(person);
             }
 
             return Redirect("~/");
