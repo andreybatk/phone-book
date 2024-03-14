@@ -9,10 +9,13 @@ using System.Threading.Tasks;
 
 namespace PhoneBook.DB
 {
-    public class ApplicationContext : IdentityDbContext
+    // dotnet ef migrations add InitIdentity --project PhoneBook.DB --startup-project PhoneBook
+    // dotnet ef database update --project PhoneBook.DB --startup-project PhoneBook
+
+    public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Person> Persons { get; set; } = null!;
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
             //Database.EnsureDeleted();
@@ -20,7 +23,7 @@ namespace PhoneBook.DB
         }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-        //    modelBuilder.Entity<Person>();
+        //    //modelBuilder.Entity<Person>();
         //}
     }
 }

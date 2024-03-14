@@ -1,0 +1,32 @@
+﻿@model PhoneBook.DB.Models.Person
+
+@{
+    ViewData["Title"] = "Телефонная книга";
+}
+
+<h2>@ViewData["Title"]: @Model.ID</h2>
+
+<table class="table" border="2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Адрес</th>
+            <th>Телефон</th>
+            <th>Описание</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.ID</td>
+            <td>@Model.FirstName</td>
+            <td>@Model.SecondName</td>
+            <td>@Model.LastName</td>
+            <td>@Model.Address</td>
+            <td>@Model.PhoneNumber</td>
+            <td>@Model.Description</td>
+        </tr>
+    </tbody>
+</table>

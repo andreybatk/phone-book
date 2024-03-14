@@ -11,7 +11,7 @@ using PhoneBook.DB;
 
 namespace PhoneBook.DB.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240313124758_InitIdentity")]
     partial class InitIdentity
     {

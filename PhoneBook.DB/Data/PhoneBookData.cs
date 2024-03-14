@@ -12,9 +12,9 @@ namespace PhoneBook.DB.Data
 {
     public class PhoneBookData : IPhoneBookData
     {
-        private readonly ApplicationContext context;
+        private readonly ApplicationDbContext context;
 
-        public PhoneBookData(ApplicationContext Context)
+        public PhoneBookData(ApplicationDbContext Context)
         {
             this.context = Context;
         }
