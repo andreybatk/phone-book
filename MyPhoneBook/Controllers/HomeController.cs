@@ -18,19 +18,6 @@ namespace MyPhoneBook.Controllers
         {
             _logger = logger;
             _context = context;
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    var person = new Person();
-            //    person.FirstName = $"Имя {i}";
-            //    person.SecondName = $"Фамилия {i}";
-            //    person.LastName = $"Отчество {i}";
-            //    person.Address = $"Москва, ул. Гагарина д. {i}";
-            //    person.PhoneNumber = $"+7133700000{i}";
-            //    person.Description = $"-";
-            //    _context.Persons.Add(person);
-            //}
-            //_context.SaveChanges();
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -39,16 +26,14 @@ namespace MyPhoneBook.Controllers
         }
 
         [HttpGet]
-		[Authorize(Roles = RoleNames.Administrator)]
-		[Authorize(Roles = RoleNames.User)]
+		[Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
 		public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-		[Authorize(Roles = RoleNames.Administrator)]
-		[Authorize(Roles = RoleNames.User)]
+		[Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
 		public async Task<IActionResult> Create(Person person)
         {
             if (ModelState.IsValid)

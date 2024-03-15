@@ -66,9 +66,9 @@ namespace PhoneBook.DB.Data
         };
         public static readonly IdentityUser User = new IdentityUser
         {
-            Email = "Admin@mail.ru",
+            Email = "User@mail.ru",
             EmailConfirmed = true,
-            UserName = "Admin@mail.ru"
+            UserName = "User@mail.ru"
         };
     }
 }
