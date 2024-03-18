@@ -12,11 +12,9 @@ namespace MyPhoneBook.Controllers
     public class HomeController : Controller
     {
         private readonly IPhoneBookData _context;
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, IPhoneBookData context)
+        public HomeController(IPhoneBookData context)
         {
-            _logger = logger;
             _context = context;
         }
         [HttpGet]
