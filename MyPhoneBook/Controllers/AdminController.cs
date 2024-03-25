@@ -8,7 +8,7 @@ using PhoneBook.DB.Data;
 
 namespace MyPhoneBook.Controllers
 {
-	[Authorize(Roles = RoleNames.Administrator)]	
+	[Authorize(Roles = RoleNames.Administrator)]
 	public class AdminController : Controller
 	{
 		private readonly ApplicationDbContext _context;
@@ -16,41 +16,39 @@ namespace MyPhoneBook.Controllers
 		private readonly RoleManager<IdentityRole> _roleManager;
 
 		public AdminController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, ApplicationDbContext context)
-        {
+		{
 			_context = context;
 			_userManager = userManager;
 			_roleManager = roleManager;
 		}
 		[HttpGet]
-        public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index()
 		{
 			return View(await _context.Users.ToListAsync());
 		}
 		[HttpGet]
 		public IActionResult Create() => View();
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-				var user = new IdentityUser { Email = model.Email, UserName = model.Email };
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return View(model);
-        }
-        [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+		[HttpPost]
+		public async Task<IActionResult> Create(CreateUserViewModel model)
 		{
-			// получаем пользователя
+			if (ModelState.IsValid)
+			{
+				var user = new IdentityUser { Email = model.Email, UserName = model.Email };
+				var result = await _userManager.CreateAsync(user, model.Password);
+
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Index");
+				}
+			}
+			return View(model);
+		}
+		[HttpGet]
+		public async Task<IActionResult> Edit(string id)
+		{
 			var user = await _userManager.FindByIdAsync(id);
 			if (user != null)
 			{
-				// получем список ролей пользователя
 				var userRoles = await _userManager.GetRolesAsync(user);
 				var allRoles = _roleManager.Roles.ToList();
 				ChangeRoleViewModel model = new ChangeRoleViewModel
@@ -68,21 +66,15 @@ namespace MyPhoneBook.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(string id, List<string> roles)
 		{
-			// получаем пользователя
 			var user = await _userManager.FindByIdAsync(id);
 			if (user != null)
 			{
-				// получем список ролей пользователя
 				var userRoles = await _userManager.GetRolesAsync(user);
-				// получаем все роли
 				var allRoles = _roleManager.Roles.ToList();
-				// получаем список ролей, которые были добавлены
 				var addedRoles = roles.Except(userRoles);
-				// получаем роли, которые были удалены
 				var removedRoles = userRoles.Except(roles);
 
 				await _userManager.AddToRolesAsync(user, addedRoles);
-
 				await _userManager.RemoveFromRolesAsync(user, removedRoles);
 
 				return RedirectToAction("Index");
