@@ -2,42 +2,42 @@
 @using PhoneBook.DB.Data;
 @model IEnumerable<PhoneBook.DB.Models.Person>
 @{
-	ViewData["Title"] = "Главная";
+    ViewData["Title"] = "Главная";
 }
 
 <h2>Телефонная книга</h2>
 @if (User.IsInRole(RoleNames.Administrator) || User.IsInRole(RoleNames.User))
 {
-	<h4>
-		<a class="btn btn-sm btn-secondary" asp-action="Create">Добавить контакт</a>
-	</h4>
+    <h4>
+        <a class="btn btn-sm btn-secondary" asp-action="Create">Добавить контакт</a>
+    </h4>
 }
 <table class="table" border="2">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Фамилия</th>
-			<th>Имя</th>
-			<th>Отчество</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td><a asp-action="Details" asp-route-id="@item.ID">@item.ID</a></td>
-				<td>@item.SecondName</td>
-				<td>@item.FirstName</td>
-				<td>@item.LastName</td>
-				@if (User.IsInRole(RoleNames.Administrator))
-				{
-					<td>
-						<a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.ID">Изменить</a>
-						<a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ID">Удалить</a>
-					</td>
-				}
-			</tr>
-		}
-	</tbody>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@item.ID">@item.ID</a></td>
+                <td>@item.SecondName</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                @if (User.IsInRole(RoleNames.Administrator))
+                {
+                    <td>
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.ID">Изменить</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ID">Удалить</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
 </table>
