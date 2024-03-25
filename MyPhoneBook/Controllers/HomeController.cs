@@ -24,15 +24,15 @@ namespace MyPhoneBook.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
-        public ActionResult Create()
+		[Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
+		public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
-        public async Task<IActionResult> Create(Person person)
+		[Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
+		public async Task<IActionResult> Create(Person person)
         {
             if (ModelState.IsValid)
             {
@@ -43,8 +43,8 @@ namespace MyPhoneBook.Controllers
             return View(person);
         }
         [HttpGet]
-        [Authorize(Roles = RoleNames.Administrator)]
-        public async Task<IActionResult> Edit(int? id)
+		[Authorize(Roles = RoleNames.Administrator)]
+		public async Task<IActionResult> Edit(int? id)
         {
             var person = await _context.GetContactByIdAsync(id);
 
@@ -56,8 +56,8 @@ namespace MyPhoneBook.Controllers
             return View(person);
         }
         [HttpPost]
-        [Authorize(Roles = RoleNames.Administrator)]
-        public async Task<IActionResult> Edit(Person person)
+		[Authorize(Roles = RoleNames.Administrator)]
+		public async Task<IActionResult> Edit(Person person)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,6 @@ namespace MyPhoneBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-
             var person = await _context.GetContactByIdAsync(id);
 
             if (person == null)
@@ -88,8 +87,8 @@ namespace MyPhoneBook.Controllers
             return View(person);
         }
         [HttpGet]
-        [Authorize(Roles = RoleNames.Administrator)]
-        public async Task<IActionResult> Delete(int? id)
+		[Authorize(Roles = RoleNames.Administrator)]
+		public async Task<IActionResult> Delete(int? id)
         {
             var person = await _context.GetContactByIdAsync(id);
 
