@@ -4,7 +4,7 @@ using PhoneBook.DB;
 using PhoneBook.DB.Data;
 using PhoneBook.DB.Infrastructure;
 
-namespace MyPhoneBook
+namespace PhoneBook
 {
     public class Program
     {

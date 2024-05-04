@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyPhoneBook.Models;
 using System.Diagnostics;
-using PhoneBook.DB.Data;
 using Microsoft.EntityFrameworkCore;
+using PhoneBook.Models;
+using PhoneBook.DB.Data;
 using PhoneBook.DB.Infrastructure;
 using PhoneBook.DB.Models;
 
-namespace MyPhoneBook.Controllers
+namespace PhoneBook.Controllers
 {
     public class HomeController : Controller
     {
@@ -17,22 +17,21 @@ namespace MyPhoneBook.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.GetContactsAsync());
         }
-
         [HttpGet]
-		[Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
-		public ActionResult Create()
+        [Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
+        public ActionResult Create()
         {
             return View();
         }
-
         [HttpPost]
-		[Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
-		public async Task<IActionResult> Create(Person person)
+        [Authorize(Roles = $"{RoleNames.User}, {RoleNames.Administrator}")]
+        public async Task<IActionResult> Create(Person person)
         {
             if (ModelState.IsValid)
             {
@@ -43,8 +42,8 @@ namespace MyPhoneBook.Controllers
             return View(person);
         }
         [HttpGet]
-		[Authorize(Roles = RoleNames.Administrator)]
-		public async Task<IActionResult> Edit(int? id)
+        [Authorize(Roles = RoleNames.Administrator)]
+        public async Task<IActionResult> Edit(int? id)
         {
             var person = await _context.GetContactByIdAsync(id);
 
@@ -56,8 +55,8 @@ namespace MyPhoneBook.Controllers
             return View(person);
         }
         [HttpPost]
-		[Authorize(Roles = RoleNames.Administrator)]
-		public async Task<IActionResult> Edit(Person person)
+        [Authorize(Roles = RoleNames.Administrator)]
+        public async Task<IActionResult> Edit(Person person)
         {
             if (ModelState.IsValid)
             {
@@ -87,8 +86,8 @@ namespace MyPhoneBook.Controllers
             return View(person);
         }
         [HttpGet]
-		[Authorize(Roles = RoleNames.Administrator)]
-		public async Task<IActionResult> Delete(int? id)
+        [Authorize(Roles = RoleNames.Administrator)]
+        public async Task<IActionResult> Delete(int? id)
         {
             var person = await _context.GetContactByIdAsync(id);
 
@@ -99,12 +98,10 @@ namespace MyPhoneBook.Controllers
 
             return Redirect("~/");
         }
-
         public IActionResult Privacy()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

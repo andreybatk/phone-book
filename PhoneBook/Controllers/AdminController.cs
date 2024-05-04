@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MyPhoneBook.Models;
+using PhoneBook.Models;
 using PhoneBook.DB;
 using PhoneBook.DB.Data;
 
-namespace MyPhoneBook.Controllers
+namespace PhoneBook.Controllers
 {
     [Authorize(Roles = RoleNames.Administrator)]
     public class AdminController : Controller
@@ -21,6 +21,7 @@ namespace MyPhoneBook.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -63,7 +64,7 @@ namespace MyPhoneBook.Controllers
 
             return NotFound();
         }
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Edit(string id, List<string> roles)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -82,7 +83,7 @@ namespace MyPhoneBook.Controllers
 
             return NotFound();
         }
-        [HttpPost]
+        [HttpDelete]
         public async Task<ActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

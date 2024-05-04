@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MyPhoneBook.Models
+namespace PhoneBook.Models
 {
     public class ChangeRoleViewModel
     {

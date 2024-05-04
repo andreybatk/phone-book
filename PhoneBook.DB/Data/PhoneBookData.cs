@@ -6,12 +6,13 @@ namespace PhoneBook.DB.Data
 {
     public class PhoneBookData : IPhoneBookData
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public PhoneBookData(ApplicationDbContext Context)
         {
-            this.context = Context;
+            _context = Context;
         }
+
         /// <summary>
         /// Добавить контакт
         /// </summary>
@@ -19,8 +20,8 @@ namespace PhoneBook.DB.Data
         /// <returns></returns>
         public async Task AddContactAsync(Person person)
         {
-            context.Persons.Add(person);
-            await context.SaveChangesAsync();
+            _context.Persons.Add(person);
+            await _context.SaveChangesAsync();
         }
         /// <summary>
         /// Обновить контакт
@@ -29,8 +30,8 @@ namespace PhoneBook.DB.Data
         /// <returns></returns>
         public async Task UpdateContactAsync(Person person)
         {
-            context.Persons.Update(person);
-            await context.SaveChangesAsync();
+            _context.Persons.Update(person);
+            await _context.SaveChangesAsync();
         }
         /// <summary>
         /// Удалить контакт
@@ -39,8 +40,8 @@ namespace PhoneBook.DB.Data
         /// <returns></returns>
         public async Task DeleteContactAsync(Person person)
         {
-            context.Persons.Remove(person);
-            await context.SaveChangesAsync();
+            _context.Persons.Remove(person);
+            await _context.SaveChangesAsync();
         }
         /// <summary>
         /// Получить все контакты
@@ -48,7 +49,7 @@ namespace PhoneBook.DB.Data
         /// <returns>Коллекцию Person</returns>
         public async Task<IEnumerable<Person>> GetContactsAsync()
         {
-            return await context.Persons.ToListAsync();
+            return await _context.Persons.ToListAsync();
         }
         /// <summary>
         /// Получить контакт по ID
@@ -57,12 +58,12 @@ namespace PhoneBook.DB.Data
         /// <returns>Экземпляр Person</returns>
         public async Task<Person> GetContactByIdAsync(int? id)
         {
-            if (id == null || context.Persons == null)
+            if (id == null || _context.Persons == null)
             {
                 return null;
             }
 
-            var person = await context.Persons
+            var person = await _context.Persons
                 .FindAsync(id);
 
             return person;

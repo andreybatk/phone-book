@@ -1,4 +1,4 @@
-namespace MyPhoneBook.Models
+namespace PhoneBook.Models
 {
     public class ErrorViewModel
     {

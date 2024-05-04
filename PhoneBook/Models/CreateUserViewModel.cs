@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyPhoneBook.Models
+namespace PhoneBook.Models
 {
     public class CreateUserViewModel
     {

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.DB", "PhoneBook.DB\PhoneBook.DB.csproj", "{058FF719-5CF2-46AF-9022-52FDFF2D7F10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhoneBook", "MyPhoneBook\MyPhoneBook.csproj", "{8D59AFF0-D474-4006-801D-C214FBB47F14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook", "PhoneBook\PhoneBook.csproj", "{8D59AFF0-D474-4006-801D-C214FBB47F14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
